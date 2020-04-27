@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  host:
+    build:
+      context: ./resvis
+    env_file:
+      - .local
+
+    command: /bin/bash -c "npx sequelize-cli db:migrate && npx nodemon app.js"
+    
+    ports:
+      - 8080:8080
+
+    volumes:
+      - ./resvis:/code
+    
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    env_file:
+      - .local
+
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+
+
+volumes:
+  postgres_data:
