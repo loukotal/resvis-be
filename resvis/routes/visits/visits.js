@@ -60,5 +60,28 @@ router.post("/", [
     }
 })
 
+router.get("/:visitId/", jwtValidate({secret: process.env.SECRET_KEY}),async (req, res) => {
+    try {
+        const visit = await Visit.findOne({
+            where: {
+                id: req.params.visitId,
+                RestaurantId: req.params.restaurantId,
+                UserId: req.user.id,
+            }
+        })
+
+        if (visit === null) {
+            res.status(404)
+            res.json({detail: "No visit found"})
+        }
+
+        res.json(visit)
+    }
+    catch(err) {
+        res.status(400)
+        res.json({detail: err.message})
+    }
+})
+
 
 module.exports = router
