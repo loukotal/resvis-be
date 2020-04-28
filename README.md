@@ -1,3 +1,12 @@
+# How to run
+## First run
+1. `bash start_local.sh`
+2. `docker ps` - find host service name (ie. `resvis-be_host_1`)
+3. either `docker exec -it resvis-be_host_1 bash` and inside container `npx sequelize-cli db:create` OR `docker exec -it resvis-be_host_1 bash -c 'npx sequelize-cli db:create'`
+
+## After first run
+1. `bash start_local.sh`
+
 # Úkol
 Tento úkol jsem vymýšlel jako zadání pro `django-rest-framework`. Zde jsem se ho pokusil vypracovat v `nodejs` a `express`.
 ## Zadání úkolu
